@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
 type Props = {
@@ -25,7 +26,13 @@ const QuestionsCard: React.FC<Props> = (props) => {
 				Question {questionNr} / {totalQuestions}
 			</p>
 			<p>{question}</p>
-			<div>{answer.map((option = <button disabled>option</button>))}</div>
+			<div>
+				{answer.map((option, i) => (
+					<button disabled key={i}>
+						option
+					</button>
+				))}
+			</div>
 		</div>
 	);
 };

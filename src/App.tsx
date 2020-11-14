@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import QuestionsCard from "./components/QuestionsCard";
+import { fetchQuestions, Difficulty } from "./utilities/API";
+
+const TOTAL_QUESTIONS = 10;
 
 const App: React.FC = () => {
 	const [loading, setLoading] = useState(false);
@@ -12,7 +15,8 @@ const App: React.FC = () => {
 
 	const startTrivia = async () => {};
 
-	const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
+	// const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
+	fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
 
 	return (
 		<div className="App">
@@ -25,14 +29,14 @@ const App: React.FC = () => {
 			<div>
 				<p>Start the quiz</p>
 			</div>
-			<QuestionsCard
+			{/* <QuestionsCard
 				questionNr={number + 1}
 				totalQuestions={questions.length}
 				question={questions[number].question}
 				answer={questions[number].answers}
 				userAnswer={answers ? answers[number] : undefined}
 				callback={checkAnswer}
-			/>
+			/> */}
 		</div>
 	);
 };

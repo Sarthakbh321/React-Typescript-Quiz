@@ -22,21 +22,24 @@ export const fetchQuestions = async (
 	difficulty: Difficulty
 ) => {
 	const url = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`;
-
+	let final;
 	try {
 		await Axios.get(url).then((res) => {
-			console.log(res.data);
-			return res.data.results.map((question: Question) => ({
+			const array = res.data.results.map((question: Question) => ({
 				...question,
 				answers: shuffleArray([
 					...question.incorrect_answers,
 					question.correct_answer,
 				]),
 			}));
+
+			final = array;
 		});
 	} catch (error) {
 		console.log(error);
 	}
+
+	return final;
 };
 
 const shuffleArray = (array: any[]) =>

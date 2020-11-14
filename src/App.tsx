@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import QuestionsCard from "./components/QuestionsCard";
-import { fetchQuestions, Difficulty } from "./utilities/API";
+import { fetchQuestions, Difficulty, QuestionState } from "./utilities/API";
 
 const TOTAL_QUESTIONS = 10;
 
 const App: React.FC = () => {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
+
 	const [number, setNumber] = useState(0);
-	const [questions, setQuestions] = useState([]);
+	const [questions, setQuestions] = useState<QuestionState[] | undefined>([]);
 	const [answers, setAnswers] = useState([]);
 	const [score, setScore] = useState([]);
 	const [gameOver, setGameOver] = useState(false);
 
-	const startTrivia = async () => {};
+	const startTrivia = async () => {
+		console.log("started");
+	};
 
 	// const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
-	fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
+
+	const getQuestion = async () => {
+		const ques = await fetchQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
+		setQuestions(ques);
+		setLoading(false);
+	};
+
+	useEffect(() => {
+		getQuestion();
+	}, []);
+
+	if (loading) {
+		return <h1>Loading....</h1>;
+	}
 
 	return (
 		<div className="App">
